@@ -49,40 +49,49 @@ const gcseResults = [
   { subject: 'English as Second Lang.', score: '7' }
 ];
 
-// State Variables
+// Animation State
 let meterValue = 0; // 0 = Sad, 1 = Happy
 let targetMeterValue = 0;
 let dogX = 950; // Starts off-screen right
 let paperOpacity = 0;
 let paperScale = 0.2;
-let showPaperPop = false;
 let isHugging = false;
 let startTime = null;
 
 function animate(timestamp) {
   if (!startTime) startTime = timestamp;
-  let elapsed = (timestamp - startTime) / 1000; // seconds
+  let elapsed = (timestamp - startTime) / 1000; // time in seconds
 
-  // Timeline Control
-  if (elapsed > 1.5 && elapsed <= 4.0) {
-    // Dog walks in
+  // --- TIMELINE CONTROLLER ---
+  if (elapsed <= 1.5) {
+    // Phase 0: Fox alone & sad
+    paperOpacity = 0;
+    targetMeterValue = 0;
+  } 
+  else if (elapsed > 1.5 && elapsed <= 4.0) {
+    // Phase 1: Dog walks in
     dogX = Math.max(520, 950 - (elapsed - 1.5) * 172);
-  } else if (elapsed > 4.0 && elapsed <= 7.0) {
-    // Dog hands over paper / show paper floating into view
-    showPaperPop = true;
-    if (paperOpacity < 1) paperOpacity += 0.03;
-    if (paperScale < 1) paperScale += 0.02;
-  } else if (elapsed > 7.0 && elapsed <= 9.0) {
-    // Dog steps in to hug; results fade out
+  } 
+  else if (elapsed > 4.0 && elapsed <= 6.5) {
+    // Phase 2: Results pop up & float in
+    paperOpacity = Math.min(1, paperOpacity + 0.03);
+    paperScale = Math.min(1, paperScale + 0.02);
+  } 
+  else if (elapsed > 6.5 && elapsed <= 8.5) {
+    // Phase 3: Results fade out quickly as dog moves in for hug
+    paperOpacity = Math.max(0, paperOpacity - 0.05);
     isHugging = true;
-    if (paperOpacity > 0) paperOpacity -= 0.05; // Fade out paper
-    dogX = Math.max(380, 520 - (elapsed - 7.0) * 70);
-    targetMeterValue = 1; // Fox shifts to happy
-  } else if (elapsed > 9.0) {
-    paperOpacity = 0; // Completely hidden after hug
+    dogX = Math.max(380, 520 - (elapsed - 6.5) * 70);
+    targetMeterValue = 1; // Meter shifts to happy
+  } 
+  else if (elapsed > 8.5) {
+    // Phase 4: Hug completed, paper gone completely
+    paperOpacity = 0;
+    dogX = 380;
+    targetMeterValue = 1;
   }
 
-  // Smoothly interpolate happiness meter
+  // Smoothly interpolate happiness meter fill
   meterValue += (targetMeterValue - meterValue) * 0.04;
 
   // --- DRAW SCENE ---
@@ -107,12 +116,12 @@ function animate(timestamp) {
     drawWhiteDog(ctx, dogX, 320);
   }
 
-  // 3. Draw GCSE Paper Popup (Text Results Card)
-  if (showPaperPop && paperOpacity > 0) {
+  // 3. Draw GCSE Paper Popup (Only drawn if opacity > 0)
+  if (paperOpacity > 0.001) {
     ctx.save();
     ctx.translate(450, 180);
     ctx.scale(paperScale, paperScale);
-    ctx.globalAlpha = Math.max(0, paperOpacity);
+    ctx.globalAlpha = paperOpacity;
     
     // Paper shadow & frame
     const cardWidth = 320;
@@ -192,7 +201,7 @@ function drawHappinessMeter(ctx, happiness) {
 
   ctx.save();
   ctx.beginPath();
-  ctx.roundRect(x + 3, y + 3 + (height - fillHeight), width - 6, fillHeight - 6, 10);
+  ctx.roundRect(x + 3, y + 3 + (height - fillHeight), width - 6, Math.max(0, fillHeight - 6), 10);
   ctx.fillStyle = grad;
   ctx.fill();
   ctx.restore();
@@ -275,12 +284,12 @@ function drawCuteFox(ctx, x, y, happiness) {
   ctx.arc(0, -78, 4, 0, Math.PI * 2);
   ctx.fill();
 
-  // Facial Expressions (Explicit Sad vs Happy Transition)
+  // Facial Expressions Transition
   ctx.strokeStyle = '#222';
   ctx.lineWidth = 2.5;
 
   if (happiness < 0.5) {
-    // SAD EXPRESSION: Tear drop, downturned eyebrows, droopy eyes, frown
+    // SAD EXPRESSION
     // Tear Drop
     ctx.fillStyle = '#64b5f6';
     ctx.beginPath();
@@ -306,7 +315,7 @@ function drawCuteFox(ctx, x, y, happiness) {
     ctx.arc(0, -68, 7, Math.PI, 0);
     ctx.stroke();
   } else {
-    // HAPPY EXPRESSION: Rosy cheeks, joyful eyes, wide smile
+    // HAPPY EXPRESSION
     // Rosy Cheeks
     ctx.fillStyle = '#ffb3ba';
     ctx.beginPath();
