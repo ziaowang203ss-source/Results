@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Nervous Little Fox</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Fox GCSE Results</title>
+
 
 <style>
+
+/* =====================================================
+   BASIC PAGE
+===================================================== */
 
 * {
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
+
     margin: 0;
+
     width: 100%;
     height: 100%;
+
 }
 
 body {
+
     overflow: hidden;
-    background: #090812;
+
     font-family: Arial, sans-serif;
+
+    background: #080711;
+
 }
 
 
@@ -30,17 +47,21 @@ body {
 ===================================================== */
 
 .scene {
-    width: 100%;
-    height: 100vh;
+
     position: relative;
 
+    width: 100%;
+    height: 100vh;
+
     background:
+
         radial-gradient(
             circle at 50% 45%,
-            #302b4a 0%,
-            #18152a 55%,
-            #07060c 100%
+            #302947 0%,
+            #181427 55%,
+            #07060d 100%
         );
+
 }
 
 
@@ -49,147 +70,173 @@ body {
 ===================================================== */
 
 .sadness-meter {
+
     position: absolute;
 
-    left: 35px;
+    left: 30px;
     top: 50%;
 
     transform: translateY(-50%);
 
-    width: 115px;
+    width: 125px;
 
     z-index: 100;
 
     text-align: center;
 
     color: white;
+
 }
 
 
-/* Title */
-
 .meter-title {
+
     font-size: 15px;
 
     font-weight: bold;
 
     letter-spacing: 1px;
 
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 
-    color: #f4d8ff;
+    color: #f5dfff;
 
     text-shadow:
-        0 0 8px #b56cff;
+
+        0 0 8px #bd79ff,
+
+        0 0 18px #8c54d9;
+
 }
 
-
-/* Meter */
 
 .meter {
+
     position: relative;
 
-    height: 360px;
-
     width: 100%;
+
+    height: 370px;
+
 }
 
 
-/* Vertical bar */
+/* Bar background */
 
 .meter-track {
+
     position: absolute;
 
     left: 50%;
 
-    top: 10px;
+    top: 25px;
 
     transform: translateX(-50%);
 
-    width: 24px;
+    width: 25px;
 
     height: 300px;
 
     border-radius: 20px;
 
-    background: #211d32;
+    background: #211c32;
 
-    border: 3px solid #5b5275;
-
-    box-shadow:
-        0 0 12px rgba(190, 120, 255, 0.35);
+    border: 3px solid #5c5277;
 
     overflow: hidden;
+
+    box-shadow:
+
+        0 0 15px rgba(180,120,255,0.3);
+
 }
 
 
-/* Filled section */
+/* Filled sadness */
 
 .meter-fill {
+
     position: absolute;
 
     left: 0;
+
     bottom: 0;
 
     width: 100%;
 
-    height: 75%;
+    height: 78%;
 
     border-radius: 20px;
 
     background:
+
         linear-gradient(
+
             to top,
-            #6b4cff,
-            #9b6cff,
-            #ff75b8
+
+            #5b4bff,
+
+            #9c6bff,
+
+            #ff70b5
+
         );
 
     transition:
-        height 1s ease;
+
+        height 1.5s ease;
+
 }
 
 
-/* Indicator */
+/* White indicator */
 
 .mood-indicator {
+
     position: absolute;
 
     left: 50%;
 
-    bottom: 75%;
+    bottom: 78%;
 
-    transform:
-        translate(-50%, 50%);
+    transform: translate(-50%, 50%);
 
-    width: 42px;
-    height: 42px;
+    width: 43px;
+
+    height: 43px;
 
     border-radius: 50%;
 
     background: white;
 
-    border: 4px solid #ff75b8;
+    border: 4px solid #ff72b8;
 
     box-shadow:
-        0 0 10px #ff75b8,
-        0 0 25px #ff75b8;
+
+        0 0 12px #ff72b8,
+
+        0 0 25px #ff72b8;
 
     transition:
-        bottom 1s ease,
-        border-color 1s ease,
-        box-shadow 1s ease;
+
+        bottom 1.5s ease,
+
+        border-color 1s ease;
+
 }
 
 
 /* Mood labels */
 
 .mood-label {
+
     position: absolute;
+
+    width: 100%;
 
     left: 0;
 
-    width: 100%;
+    z-index: 5;
 
     font-weight: bold;
 
@@ -197,57 +244,53 @@ body {
 
     line-height: 20px;
 
-    z-index: 5;
 }
 
+
 .mood-label span {
+
     font-size: 10px;
 
     letter-spacing: 1px;
+
 }
 
-
-/* Happy */
 
 .mood-label.happy {
+
     top: -5px;
 
-    transform: translateY(-100%);
-
     color: #ffe66d;
+
 }
 
-
-/* Okay */
 
 .mood-label.okay {
+
     top: 145px;
 
-    color: #d7d2e8;
+    color: #ded9eb;
+
 }
 
-
-/* Sad */
 
 .mood-label.sad {
-    bottom: -5px;
 
-    transform: translateY(100%);
+    bottom: -2px;
 
     color: #82b8ff;
+
 }
 
 
-/* Percentage */
-
 .sadness-number {
-    margin-top: 12px;
+
+    margin-top: 8px;
 
     font-size: 13px;
 
     color: #ddd7eb;
 
-    transition: color 1s ease;
 }
 
 
@@ -256,65 +299,91 @@ body {
 ===================================================== */
 
 .fox {
+
     position: absolute;
 
     width: 390px;
+
     height: 430px;
 
-    left: 50%;
+    left: 43%;
+
     top: 48%;
 
-    transform: translate(-50%, -50%);
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 20;
 
     animation:
-        nervousBody 0.7s ease-in-out infinite alternate;
+
+        nervousFox
+        0.7s
+        ease-in-out
+        infinite
+        alternate;
+
 }
 
 
-/* Nervous shaking */
-
-@keyframes nervousBody {
+@keyframes nervousFox {
 
     from {
+
         transform:
             translate(-50%, -50%)
             rotate(-1deg);
+
     }
 
     to {
+
         transform:
             translate(-50%, -50%)
             rotate(1deg);
+
     }
+
 }
 
 
 .fox-svg {
+
     width: 100%;
     height: 100%;
 
     overflow: visible;
 
     filter:
+
         drop-shadow(
-            0 15px 20px rgba(0,0,0,0.35)
+            0 15px 20px
+            rgba(0,0,0,0.35)
         );
+
 }
 
 
 /* =====================================================
-   FLUFFY TAIL
+   FOX TAIL
 ===================================================== */
 
 .tail {
-    animation:
-        nervousTail 0.9s ease-in-out infinite alternate;
 
-    transform-origin: 105px 320px;
+    transform-origin: 110px 315px;
+
+    animation:
+
+        tailNervous
+        1s
+        ease-in-out
+        infinite
+        alternate;
+
 }
 
 
-@keyframes nervousTail {
+@keyframes tailNervous {
 
     from {
         transform: rotate(-5deg);
@@ -323,17 +392,24 @@ body {
     to {
         transform: rotate(6deg);
     }
+
 }
 
 
 /* =====================================================
-   FUR MOVEMENT
+   FUR
 ===================================================== */
 
-.fur-tuft {
+.fur {
 
     animation:
-        furMove 0.8s ease-in-out infinite alternate;
+
+        furMove
+        0.8s
+        ease-in-out
+        infinite
+        alternate;
+
 }
 
 
@@ -346,6 +422,7 @@ body {
     to {
         transform: translateX(1px);
     }
+
 }
 
 
@@ -355,85 +432,113 @@ body {
 
 .ear-left {
 
-    transform-origin: 125px 90px;
+    transform-origin: 120px 95px;
 
     animation:
-        nervousEarLeft 1.2s ease-in-out infinite;
+
+        earLeft
+        1.2s
+        ease-in-out
+        infinite;
+
 }
 
 
 .ear-right {
 
-    transform-origin: 275px 90px;
+    transform-origin: 280px 95px;
 
     animation:
-        nervousEarRight 1.1s ease-in-out infinite;
+
+        earRight
+        1.1s
+        ease-in-out
+        infinite;
+
 }
 
 
-@keyframes nervousEarLeft {
+@keyframes earLeft {
 
-    0%, 100% {
+    0%,100% {
         transform: rotate(0deg);
     }
 
     50% {
         transform: rotate(-8deg);
     }
+
 }
 
 
-@keyframes nervousEarRight {
+@keyframes earRight {
 
-    0%, 100% {
+    0%,100% {
         transform: rotate(0deg);
     }
 
     50% {
         transform: rotate(8deg);
     }
+
 }
 
 
 /* =====================================================
-   EYES
+   FOX EYES
 ===================================================== */
 
 .eye {
 
+    transform-origin: center;
+
     animation:
-        nervousBlink 3s infinite;
+
+        blink
+        3.5s
+        infinite;
+
 }
 
 
-@keyframes nervousBlink {
+@keyframes blink {
 
     0%, 88%, 100% {
         transform: scaleY(1);
     }
 
     92% {
-        transform: scaleY(0.15);
+        transform: scaleY(0.1);
     }
+
 }
 
 
 /* =====================================================
-   SWEAT
+   SWEAT DROP
 ===================================================== */
 
 .sweat {
 
     animation:
-        sweatDrop 1.8s ease-in-out infinite;
+
+        sweat
+        1.7s
+        ease-in-out
+        infinite;
+
 }
 
 
-@keyframes sweatDrop {
+@keyframes sweat {
 
     0% {
+
         opacity: 0;
-        transform: translateY(-5px);
+
+        transform:
+            translateY(-5px);
+
     }
 
     25% {
@@ -441,27 +546,183 @@ body {
     }
 
     100% {
+
         opacity: 0;
-        transform: translateY(45px);
+
+        transform:
+            translateY(45px);
+
     }
+
 }
 
 
 /* =====================================================
-   TEXT
+   PUPPY
 ===================================================== */
 
-.nervous-text {
+.puppy {
 
     position: absolute;
 
-    width: 100%;
+    width: 310px;
 
-    bottom: 8%;
+    height: 330px;
+
+    right: -350px;
+
+    top: 45%;
+
+    transform:
+        translateY(-50%);
+
+    z-index: 40;
+
+    transition:
+
+        right
+        2.5s
+        cubic-bezier(.2,.8,.2,1);
+
+}
+
+
+/* Puppy enters */
+
+.puppy.arrive {
+
+    right: 10%;
+
+}
+
+
+/* Puppy SVG */
+
+.puppy-svg {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+
+    filter:
+
+        drop-shadow(
+            0 12px 18px
+            rgba(0,0,0,0.3)
+        );
+
+}
+
+
+/* Puppy walking movement */
+
+.puppy.arrive .puppy-body {
+
+    animation:
+
+        puppyWalk
+        0.6s
+        ease-in-out
+        infinite
+        alternate;
+
+}
+
+
+@keyframes puppyWalk {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+
+}
+
+
+/* =====================================================
+   GCSE PAPER
+===================================================== */
+
+.result-paper {
+
+    opacity: 0;
+
+    transform:
+        translateX(40px)
+        rotate(8deg);
+
+    transition:
+
+        opacity 0.8s ease,
+
+        transform 0.8s ease;
+
+}
+
+
+/* Paper appears */
+
+.puppy.show-paper .result-paper {
+
+    opacity: 1;
+
+    transform:
+        translateX(0)
+        rotate(-4deg);
+
+}
+
+
+/* =====================================================
+   PAPER SHINE
+===================================================== */
+
+.paper-shine {
+
+    animation:
+
+        paperShine
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+
+@keyframes paperShine {
+
+    0%,100% {
+        opacity: 0.15;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.message {
+
+    position: absolute;
+
+    bottom: 6%;
+
+    left: 0;
+
+    width: 100%;
 
     text-align: center;
 
-    color: #f4d8ff;
+    color: #f5dfff;
 
     font-size:
         clamp(22px, 3vw, 42px);
@@ -470,71 +731,96 @@ body {
 
     opacity: 0;
 
-    animation:
-        textAppear 1s ease forwards 1s;
+    z-index: 100;
 
     text-shadow:
+
         0 0 10px #c77dff,
+
         0 0 25px #9b5de5;
+
+    transition:
+
+        opacity 1s ease;
+
 }
 
 
-@keyframes textAppear {
+.message.show {
 
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
+    opacity: 1;
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 
 /* =====================================================
-   NERVOUS DOTS
+   QUESTION MARKS
 ===================================================== */
 
-.dots {
+.question {
 
     position: absolute;
 
-    top: 19%;
-    left: 50%;
+    color: #d9a8ff;
 
-    transform:
-        translateX(-50%);
+    font-size: 38px;
 
-    color: #f4d8ff;
+    opacity: 0;
 
-    font-size: 30px;
-
-    letter-spacing: 12px;
-
-    animation:
-        dotsMove 1s ease-in-out infinite alternate;
 }
 
 
-@keyframes dotsMove {
+.question.one {
+
+    left: 31%;
+
+    top: 22%;
+
+}
+
+
+.question.two {
+
+    left: 57%;
+
+    top: 18%;
+
+}
+
+
+.question.show {
+
+    opacity: 1;
+
+    animation:
+
+        questionFloat
+        1.5s
+        ease-in-out
+        infinite
+        alternate;
+
+}
+
+
+@keyframes questionFloat {
 
     from {
-        opacity: 0.35;
 
         transform:
-            translateX(-50%)
-            translateY(0);
+            translateY(0)
+            rotate(-8deg);
+
     }
 
     to {
-        opacity: 1;
 
         transform:
-            translateX(-50%)
-            translateY(-7px);
+            translateY(-12px)
+            rotate(8deg);
+
     }
+
 }
 
 
@@ -542,46 +828,64 @@ body {
    MOBILE
 ===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
 
     .sadness-meter {
 
-        left: 10px;
+        left: 5px;
 
         transform:
             translateY(-50%)
-            scale(0.75);
+            scale(0.7);
 
         transform-origin:
             left center;
+
     }
 
 
     .fox {
 
+        left: 50%;
+
         width: 320px;
         height: 360px;
+
     }
 
 
-    .nervous-text {
+    .puppy {
 
-        font-size: 23px;
+        width: 250px;
+        height: 270px;
+
     }
 
 
-    .dots {
+    .puppy.arrive {
 
-        top: 15%;
+        right: -5%;
+
+    }
+
+
+    .message {
+
+        font-size: 21px;
+
+        padding: 0 10px;
+
     }
 
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 
 <div class="scene">
 
@@ -596,21 +900,33 @@ body {
         FOX'S MOOD
     </div>
 
+
     <div class="meter">
 
         <div class="mood-label happy">
+
             😊<br>
+
             <span>HAPPY</span>
+
         </div>
+
 
         <div class="mood-label okay">
+
             😐<br>
+
             <span>OKAY</span>
+
         </div>
 
+
         <div class="mood-label sad">
+
             😢<br>
+
             <span>SAD</span>
+
         </div>
 
 
@@ -620,6 +936,7 @@ body {
                 class="meter-fill"
                 id="meterFill">
             </div>
+
 
             <div
                 class="mood-indicator"
@@ -635,7 +952,7 @@ body {
         class="sadness-number"
         id="sadnessNumber">
 
-        Sadness: 75%
+        Sadness: 78%
 
     </div>
 
@@ -643,11 +960,24 @@ body {
 
 
 <!-- =====================================================
-     NERVOUS DOTS
+     QUESTION MARKS
 ===================================================== -->
 
-<div class="dots">
-    • • •
+<div
+    class="question one"
+    id="questionOne">
+
+    ?
+
+</div>
+
+
+<div
+    class="question two"
+    id="questionTwo">
+
+    ?
+
 </div>
 
 
@@ -670,55 +1000,94 @@ body {
 
 <g class="tail">
 
+
     <path
         d="
-        M125 315
-        C70 300 30 260 42 215
-        C53 176 91 163 118 185
-        C148 209 143 250 126 278
-        C157 292 170 320 125 315
+        M130 320
+
+        C75 305
+        30 270
+        40 220
+
+        C48 180
+        85 160
+        117 182
+
+        C150 205
+        147 250
+        126 280
+
+        C160 295
+        168 325
+        130 320
+
         Z"
+
         fill="#e97925"
+
         stroke="#29181a"
+
         stroke-width="6"
     />
 
 
-    <!-- EXTRA FLUFF -->
+    <!-- VERY OBVIOUS FLUFF -->
 
-    <g class="fur-tuft">
+    <g class="fur">
 
         <path
             d="
-            M45 216
-            L19 198
-            L44 191
+            M48 220
+
+            L18 200
+            L45 193
+
             L23 168
-            L59 175
-            L50 143
-            L78 168
-            L85 137
-            L103 173
+            L60 176
+
+            L51 143
+            L80 168
+
+            L88 138
+            L104 174
             "
+
             fill="#e97925"
+
             stroke="#29181a"
+
             stroke-width="5"
+
             stroke-linejoin="round"
         />
 
     </g>
 
 
-    <!-- WHITE TAIL TIP -->
+    <!-- WHITE TAIL -->
 
     <path
         d="
-        M47 218
-        C37 197 43 178 58 170
-        C70 185 83 194 102 196
-        C91 215 89 239 104 263
-        C78 259 57 244 47 218
+        M45 220
+
+        C35 198
+        42 177
+        59 168
+
+        C72 184
+        86 194
+        104 196
+
+        C91 216
+        90 240
+        106 264
+
+        C78 260
+        55 244
+        45 220
+
         Z"
+
         fill="#fff5e9"
     />
 
@@ -726,81 +1095,129 @@ body {
 
 
 <!-- =====================================================
-     BODY
+     SLENDER BODY
 ===================================================== -->
 
 <path
     d="
-    M145 270
-    C145 238 165 218 200 218
-    C235 218 255 238 255 270
-    L270 360
-    C253 385 147 385 130 360
+    M151 270
+
+    C151 239
+    170 220
+    200 220
+
+    C230 220
+    249 239
+    249 270
+
+    L263 360
+
+    C245 382
+    155 382
+    137 360
+
     Z"
+
     fill="#e97925"
+
     stroke="#29181a"
+
     stroke-width="6"
 />
 
 
 <!-- =====================================================
-     WHITE CHEST
+     FLUFFY WHITE CHEST
 ===================================================== -->
 
 <path
     d="
-    M170 268
+    M172 266
+
     L185 280
-    L195 269
+    L196 267
     L207 282
     L220 268
-    L232 282
-    L245 270
-    L252 340
-    C230 366 170 366 148 340
+    L232 281
+    L243 268
+
+    L248 337
+
+    C230 365
+    170 365
+    152 337
+
     Z"
+
     fill="#fff5e9"
 />
 
 
 <!-- =====================================================
-     HEAD
+     FOX HEAD
 ===================================================== -->
 
 <ellipse
+
     cx="200"
+
     cy="170"
+
     rx="112"
+
     ry="105"
+
     fill="#e97925"
+
     stroke="#29181a"
+
     stroke-width="6"
+
 />
 
 
 <!-- =====================================================
-     LEFT BLACK EAR
+     LEFT EAR
 ===================================================== -->
 
 <g class="ear-left">
 
     <path
         d="
-        M112 102
-        C88 70 86 29 112 15
-        C139 28 158 61 157 105
+        M112 103
+
+        C88 70
+        87 30
+        112 15
+
+        C140 28
+        158 62
+        157 106
+
         Z"
+
         fill="#17151b"
+
         stroke="#29181a"
+
         stroke-width="6"
     />
 
+
     <path
         d="
-        M115 75
-        C108 52 112 37 119 31
-        C133 43 143 63 144 82
+        M115 76
+
+        C108 52
+        112 38
+        119 31
+
+        C133 43
+        143 63
+        144 82
+
         Z"
+
         fill="#fff0df"
     />
 
@@ -808,28 +1225,47 @@ body {
 
 
 <!-- =====================================================
-     RIGHT BLACK EAR
+     RIGHT EAR
 ===================================================== -->
 
 <g class="ear-right">
 
     <path
         d="
-        M288 102
-        C312 70 314 29 288 15
-        C261 28 242 61 243 105
+        M288 103
+
+        C312 70
+        313 30
+        288 15
+
+        C260 28
+        242 62
+        243 106
+
         Z"
+
         fill="#17151b"
+
         stroke="#29181a"
+
         stroke-width="6"
     />
 
+
     <path
         d="
-        M285 75
-        C292 52 288 37 281 31
-        C267 43 257 63 256 82
+        M285 76
+
+        C292 52
+        288 38
+        281 31
+
+        C267 43
+        257 63
+        256 82
+
         Z"
+
         fill="#fff0df"
     />
 
@@ -840,38 +1276,53 @@ body {
      FLUFFY CHEEKS
 ===================================================== -->
 
-<g class="fur-tuft">
+<g class="fur">
+
 
     <path
         d="
-        M102 184
-        L78 174
+        M103 183
+
+        L77 173
         L94 196
-        L70 203
+
+        L69 203
         L99 213
-        L84 233
+
+        L83 234
         L116 224
         "
+
         fill="#e97925"
+
         stroke="#29181a"
+
         stroke-width="5"
+
         stroke-linejoin="round"
     />
 
 
     <path
         d="
-        M298 184
-        L322 174
+        M297 183
+
+        L323 173
         L306 196
-        L330 203
+
+        L331 203
         L301 213
-        L316 233
+
+        L317 234
         L284 224
         "
+
         fill="#e97925"
+
         stroke="#29181a"
+
         stroke-width="5"
+
         stroke-linejoin="round"
     />
 
@@ -879,57 +1330,61 @@ body {
 
 
 <!-- =====================================================
-     BIG NERVOUS EYES
+     BIG CUTE NERVOUS EYES
 ===================================================== -->
 
 <g class="eye">
 
+
     <ellipse
         cx="157"
         cy="170"
-        rx="25"
-        ry="31"
+        rx="27"
+        ry="33"
         fill="#17151b"
     />
+
 
     <ellipse
         cx="243"
         cy="170"
-        rx="25"
-        ry="31"
+        rx="27"
+        ry="33"
         fill="#17151b"
     />
 
 </g>
 
 
-<!-- EYE HIGHLIGHTS -->
+<!-- BIG EYE HIGHLIGHTS -->
 
 <circle
-    cx="149"
-    cy="160"
-    r="8"
-    fill="white"
-/>
-
-<circle
-    cx="235"
-    cy="160"
-    r="8"
+    cx="148"
+    cy="158"
+    r="9"
     fill="white"
 />
 
 
 <circle
-    cx="166"
-    cy="182"
+    cx="234"
+    cy="158"
+    r="9"
+    fill="white"
+/>
+
+
+<circle
+    cx="165"
+    cy="181"
     r="4"
     fill="#aaa"
 />
 
+
 <circle
-    cx="252"
-    cy="182"
+    cx="251"
+    cy="181"
     r="4"
     fill="#aaa"
 />
@@ -942,10 +1397,15 @@ body {
 <path
     d="
     M132 130
-    Q156 114 179 128"
+    Q156 113
+    179 128"
+
     fill="none"
+
     stroke="#3b2421"
+
     stroke-width="7"
+
     stroke-linecap="round"
 />
 
@@ -953,10 +1413,15 @@ body {
 <path
     d="
     M221 128
-    Q244 114 268 130"
+    Q244 113
+    268 130"
+
     fill="none"
+
     stroke="#3b2421"
+
     stroke-width="7"
+
     stroke-linecap="round"
 />
 
@@ -968,9 +1433,15 @@ body {
 <path
     d="
     M188 205
-    Q200 195 212 205
-    Q200 218 188 205
+
+    Q200 195
+    212 205
+
+    Q200 218
+    188 205
+
     Z"
+
     fill="#17151b"
 />
 
@@ -982,11 +1453,19 @@ body {
 <path
     d="
     M176 226
-    Q200 213 224 226
-    Q200 239 176 226
+
+    Q200 213
+    224 226
+
+    Q200 239
+    176 226
+
     Z"
+
     fill="#59222c"
+
     stroke="#29181a"
+
     stroke-width="5"
 />
 
@@ -1014,31 +1493,39 @@ body {
 
 
 <!-- =====================================================
-     FOREHEAD FUR
+     FOREHEAD FLUFF
 ===================================================== -->
 
 <path
     d="
     M177 76
+
     L187 58
     L200 73
     L213 55
+
     L223 76
     L240 67
+
     L234 91
+
     L166 91
+
     L160 67
+
     Z"
+
     fill="#f28a2e"
+
     stroke="#29181a"
+
     stroke-width="5"
+
     stroke-linejoin="round"
 />
 
 
-<!-- =====================================================
-     SWEAT DROP
-===================================================== -->
+<!-- SWEAT -->
 
 <ellipse
     class="sweat"
@@ -1056,11 +1543,371 @@ body {
 
 
 <!-- =====================================================
-     TEXT
+     PUPPY
 ===================================================== -->
 
-<div class="nervous-text">
-    🦊 I'm a little nervous...
+<div
+    class="puppy"
+    id="puppy">
+
+
+<svg
+    class="puppy-svg"
+    viewBox="0 0 320 350"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+
+<!-- =====================================================
+     PUPPY BODY
+===================================================== -->
+
+<g class="puppy-body">
+
+
+    <!-- BODY -->
+
+    <ellipse
+        cx="160"
+        cy="225"
+        rx="90"
+        ry="85"
+        fill="#fff"
+        stroke="#dedede"
+        stroke-width="5"
+    />
+
+
+    <!-- HEAD -->
+
+    <ellipse
+        cx="160"
+        cy="120"
+        rx="100"
+        ry="88"
+        fill="#fff"
+        stroke="#dedede"
+        stroke-width="5"
+    />
+
+
+    <!-- LEFT EAR -->
+
+    <ellipse
+        cx="72"
+        cy="120"
+        rx="38"
+        ry="62"
+        fill="#eeeeee"
+        transform="rotate(20 72 120)"
+    />
+
+
+    <!-- RIGHT EAR -->
+
+    <ellipse
+        cx="248"
+        cy="120"
+        rx="38"
+        ry="62"
+        fill="#eeeeee"
+        transform="rotate(-20 248 120)"
+    />
+
+
+    <!-- EYES -->
+
+    <ellipse
+        cx="125"
+        cy="116"
+        rx="15"
+        ry="20"
+        fill="#17151b"
+    />
+
+
+    <ellipse
+        cx="195"
+        cy="116"
+        rx="15"
+        ry="20"
+        fill="#17151b"
+    />
+
+
+    <circle
+        cx="120"
+        cy="109"
+        r="5"
+        fill="white"
+    />
+
+
+    <circle
+        cx="190"
+        cy="109"
+        r="5"
+        fill="white"
+    />
+
+
+    <!-- MUZZLE -->
+
+    <ellipse
+        cx="160"
+        cy="153"
+        rx="52"
+        ry="35"
+        fill="#fafafa"
+        stroke="#dedede"
+        stroke-width="3"
+    />
+
+
+    <!-- NOSE -->
+
+    <ellipse
+        cx="160"
+        cy="147"
+        rx="18"
+        ry="13"
+        fill="#17151b"
+    />
+
+
+    <!-- SMILE -->
+
+    <path
+        d="
+        M145 165
+        Q160 178
+        175 165"
+
+        fill="none"
+
+        stroke="#333"
+
+        stroke-width="4"
+
+        stroke-linecap="round"
+    />
+
+
+    <!-- FEET -->
+
+    <ellipse
+        cx="105"
+        cy="307"
+        rx="30"
+        ry="38"
+        fill="#fff"
+        stroke="#dedede"
+        stroke-width="4"
+    />
+
+
+    <ellipse
+        cx="215"
+        cy="307"
+        rx="30"
+        ry="38"
+        fill="#fff"
+        stroke="#dedede"
+        stroke-width="4"
+    />
+
+
+</g>
+
+
+<!-- =====================================================
+     GCSE RESULT PAPER
+
+     IMPORTANT:
+     The actual result is NOT shown.
+===================================================== -->
+
+<g
+    class="result-paper"
+    id="resultPaper">
+
+
+    <!-- PAPER -->
+
+    <rect
+        x="38"
+        y="155"
+        width="180"
+        height="135"
+        rx="7"
+
+        fill="#fff7df"
+
+        stroke="#d8c79d"
+
+        stroke-width="4"
+    />
+
+
+    <!-- Paper corner -->
+
+    <path
+        d="
+        M188 155
+        L218 185
+        L188 185
+        Z"
+
+        fill="#eadcb8"
+    />
+
+
+    <!-- TITLE -->
+
+    <text
+        x="128"
+        y="185"
+
+        text-anchor="middle"
+
+        font-size="20"
+
+        font-weight="bold"
+
+        fill="#493c32">
+
+        GCSE RESULTS
+
+    </text>
+
+
+    <!-- Divider -->
+
+    <line
+        x1="62"
+        y1="199"
+        x2="194"
+        y2="199"
+
+        stroke="#c9b88d"
+
+        stroke-width="2"
+    />
+
+
+    <!-- HIDDEN RESULT -->
+
+    <rect
+        x="65"
+        y="214"
+        width="126"
+        height="38"
+
+        rx="6"
+
+        fill="#493c32"
+    />
+
+
+    <text
+        x="128"
+        y="239"
+
+        text-anchor="middle"
+
+        font-size="14"
+
+        font-weight="bold"
+
+        fill="#fff">
+
+        RESULT HIDDEN
+
+    </text>
+
+
+    <!-- Little star -->
+
+    <text
+        x="80"
+        y="275"
+
+        font-size="18"
+
+        fill="#e88c5a">
+
+        ★
+
+    </text>
+
+
+    <text
+        x="177"
+        y="275"
+
+        font-size="18"
+
+        fill="#e88c5a">
+
+        ★
+
+    </text>
+
+
+</g>
+
+
+<!-- =====================================================
+     PUPPY PAWS HOLDING PAPER
+===================================================== -->
+
+<ellipse
+    cx="58"
+    cy="230"
+    rx="27"
+    ry="18"
+
+    fill="#fff"
+
+    stroke="#dedede"
+
+    stroke-width="4"
+
+    transform="rotate(-15 58 230)"
+/>
+
+
+<ellipse
+    cx="208"
+    cy="230"
+    rx="27"
+    ry="18"
+
+    fill="#fff"
+
+    stroke="#dedede"
+
+    stroke-width="4"
+
+    transform="rotate(15 208 230)"
+/>
+
+
+</svg>
+
+</div>
+
+
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
+
+<div
+    class="message"
+    id="message">
+
+    🦊 Your GCSE result is here...
+
 </div>
 
 
@@ -1075,117 +1922,164 @@ body {
 
 
 /* =====================================================
-   GET THE METER ELEMENTS
+   ELEMENTS
 ===================================================== */
 
 const meterFill =
-    document.getElementById("meterFill");
+    document.getElementById(
+        "meterFill"
+    );
+
 
 const moodIndicator =
-    document.getElementById("moodIndicator");
+    document.getElementById(
+        "moodIndicator"
+    );
+
 
 const sadnessNumber =
-    document.getElementById("sadnessNumber");
+    document.getElementById(
+        "sadnessNumber"
+    );
+
+
+const puppy =
+    document.getElementById(
+        "puppy"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const questionOne =
+    document.getElementById(
+        "questionOne"
+    );
+
+
+const questionTwo =
+    document.getElementById(
+        "questionTwo"
+    );
 
 
 /* =====================================================
    SADNESS FUNCTION
 
-   0%   = HAPPY
-   50%  = OKAY
-   100% = SAD
+   0  = HAPPY
+   50 = OKAY
+   100 = SAD
 ===================================================== */
 
 function setSadness(amount) {
 
-    /*
-       Make sure the value cannot go below 0
-       or above 100.
-    */
-
     amount =
         Math.max(
             0,
-            Math.min(100, amount)
+            Math.min(
+                100,
+                amount
+            )
         );
 
-
-    /*
-       Fill the bar.
-    */
 
     meterFill.style.height =
         amount + "%";
 
 
-    /*
-       Move the white indicator.
-    */
-
     moodIndicator.style.bottom =
         amount + "%";
 
-
-    /*
-       Update the percentage text.
-    */
 
     sadnessNumber.textContent =
         "Sadness: " +
         Math.round(amount) +
         "%";
+
 }
 
 
 /* =====================================================
-   STARTING MOOD
+   START
 ===================================================== */
 
-setSadness(75);
+setSadness(78);
 
 
 /* =====================================================
-   THE FOX GRADUALLY CALMS DOWN
+   FOX REALISES SOMETHING IS COMING
 ===================================================== */
 
+setTimeout(function() {
 
-/*
-   After 5 seconds:
-   75% -> 45%
-*/
+    questionOne.classList.add(
+        "show"
+    );
+
+    questionTwo.classList.add(
+        "show"
+    );
+
+}, 2000);
+
+
+/* =====================================================
+   PUPPY WALKS IN
+===================================================== */
 
 setTimeout(function() {
 
-    setSadness(45);
+    puppy.classList.add(
+        "arrive"
+    );
 
-}, 5000);
-
-
-/*
-   After 8 seconds:
-   45% -> 15%
-*/
-
-setTimeout(function() {
-
-    setSadness(15);
-
-}, 8000);
+}, 3500);
 
 
-/*
-   After 11 seconds:
-   15% -> 5%
-*/
+/* =====================================================
+   PUPPY SHOWS GCSE PAPER
+===================================================== */
 
 setTimeout(function() {
 
-    setSadness(5);
+    puppy.classList.add(
+        "show-paper"
+    );
 
-}, 11000);
+}, 6000);
+
+
+/* =====================================================
+   FOX BECOMES A LITTLE LESS SAD
+===================================================== */
+
+setTimeout(function() {
+
+    setSadness(60);
+
+}, 7000);
+
+
+/* =====================================================
+   MESSAGE APPEARS
+===================================================== */
+
+setTimeout(function() {
+
+    message.classList.add(
+        "show"
+    );
+
+}, 8500);
 
 
 </script>
 
+
 </body>
+
 </html>
