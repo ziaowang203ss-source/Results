@@ -37,7 +37,7 @@
 const canvas = document.getElementById('animCanvas');
 const ctx = canvas.getContext('2d');
 
-// GCSE Results Data extracted from your grades
+// GCSE Results Data
 const gcseResults = [
   { subject: 'Art & Design (Fine Art)', score: '8' },
   { subject: 'English Language', score: '3' },
@@ -70,17 +70,20 @@ function animate(timestamp) {
   } else if (elapsed > 4.0 && elapsed <= 7.0) {
     // Dog hands over paper / show paper floating into view
     showPaperPop = true;
-    if (paperOpacity < 1) paperOpacity += 0.02;
-    if (paperScale < 1) paperScale += 0.015;
+    if (paperOpacity < 1) paperOpacity += 0.03;
+    if (paperScale < 1) paperScale += 0.02;
   } else if (elapsed > 7.0 && elapsed <= 9.0) {
-    // Dog steps in to hug
+    // Dog steps in to hug; results fade out
     isHugging = true;
+    if (paperOpacity > 0) paperOpacity -= 0.05; // Fade out paper
     dogX = Math.max(380, 520 - (elapsed - 7.0) * 70);
     targetMeterValue = 1; // Fox shifts to happy
+  } else if (elapsed > 9.0) {
+    paperOpacity = 0; // Completely hidden after hug
   }
 
   // Smoothly interpolate happiness meter
-  meterValue += (targetMeterValue - meterValue) * 0.03;
+  meterValue += (targetMeterValue - meterValue) * 0.04;
 
   // --- DRAW SCENE ---
   // Background
@@ -105,11 +108,11 @@ function animate(timestamp) {
   }
 
   // 3. Draw GCSE Paper Popup (Text Results Card)
-  if (showPaperPop) {
+  if (showPaperPop && paperOpacity > 0) {
     ctx.save();
     ctx.translate(450, 180);
     ctx.scale(paperScale, paperScale);
-    ctx.globalAlpha = paperOpacity;
+    ctx.globalAlpha = Math.max(0, paperOpacity);
     
     // Paper shadow & frame
     const cardWidth = 320;
@@ -136,18 +139,15 @@ function animate(timestamp) {
     gcseResults.forEach((item, index) => {
       let rowY = startY + index * 24;
 
-      // Alternating row background colors
       if (index % 2 === 0) {
         ctx.fillStyle = '#f8f9fa';
         ctx.fillRect(-cardWidth / 2 + 10, rowY - 14, cardWidth - 20, 20);
       }
 
-      // Subject Text (Left aligned)
       ctx.fillStyle = '#333333';
       ctx.textAlign = 'left';
       ctx.fillText(item.subject, -cardWidth / 2 + 20, rowY);
 
-      // Score Text (Right aligned, highlighted)
       ctx.fillStyle = '#1e824c';
       ctx.font = 'bold 13px Arial';
       ctx.textAlign = 'right';
@@ -275,30 +275,56 @@ function drawCuteFox(ctx, x, y, happiness) {
   ctx.arc(0, -78, 4, 0, Math.PI * 2);
   ctx.fill();
 
-  // Eyes (Sad droopy vs Happy)
+  // Facial Expressions (Explicit Sad vs Happy Transition)
   ctx.strokeStyle = '#222';
   ctx.lineWidth = 2.5;
+
   if (happiness < 0.5) {
+    // SAD EXPRESSION: Tear drop, downturned eyebrows, droopy eyes, frown
+    // Tear Drop
+    ctx.fillStyle = '#64b5f6';
     ctx.beginPath();
-    ctx.arc(-10, -88, 5, 0.2 * Math.PI, 0.9 * Math.PI);
-    ctx.stroke();
+    ctx.arc(-16, -72, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Downturned Eyebrows
     ctx.beginPath();
-    ctx.arc(10, -88, 5, 0.1 * Math.PI, 0.8 * Math.PI);
+    ctx.moveTo(-15, -96); ctx.lineTo(-5, -92);
+    ctx.moveTo(15, -96); ctx.lineTo(5, -92);
     ctx.stroke();
 
+    // Sad Eyes (Arcs curving downwards)
     ctx.beginPath();
-    ctx.arc(0, -68, 6, Math.PI, 0);
+    ctx.arc(-10, -84, 5, Math.PI, 0);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(10, -84, 5, Math.PI, 0);
+    ctx.stroke();
+
+    // Sad Frown (Curving downwards)
+    ctx.beginPath();
+    ctx.arc(0, -68, 7, Math.PI, 0);
     ctx.stroke();
   } else {
+    // HAPPY EXPRESSION: Rosy cheeks, joyful eyes, wide smile
+    // Rosy Cheeks
+    ctx.fillStyle = '#ffb3ba';
     ctx.beginPath();
-    ctx.arc(-10, -85, 5, Math.PI, 0);
+    ctx.arc(-18, -75, 5, 0, Math.PI * 2);
+    ctx.arc(18, -75, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Happy Crescent Eyes (^ ^ shape)
+    ctx.beginPath();
+    ctx.arc(-10, -85, 5, 0, Math.PI, true);
     ctx.stroke();
     ctx.beginPath();
-    ctx.arc(10, -85, 5, Math.PI, 0);
+    ctx.arc(10, -85, 5, 0, Math.PI, true);
     ctx.stroke();
 
+    // Big Happy Smile
     ctx.beginPath();
-    ctx.arc(0, -74, 6, 0, Math.PI);
+    ctx.arc(0, -75, 8, 0, Math.PI);
     ctx.stroke();
   }
 
@@ -340,7 +366,7 @@ function drawWhiteDog(ctx, x, y) {
   ctx.ellipse(28, -80, 10, 20, -0.2, 0, Math.PI * 2);
   ctx.fill();
 
-  // Eyes & Nose
+  // Eyes & Pink Nose
   ctx.fillStyle = '#2b2b2b';
   ctx.beginPath();
   ctx.arc(-9, -83, 3.5, 0, Math.PI * 2);
